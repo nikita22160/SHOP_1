@@ -15,10 +15,43 @@ class Category:
         """
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
 
         Category.all_quantity_category += 1     # Подсчитывает категории товаров
-        Category.all_quantity_unique_product += len(set(self.products))   # Подсчитывает уникальные продукты
+        Category.all_quantity_unique_product += len(set(self.__products))   # Подсчитывает уникальные продукты
 
         self.categories_count = Category.all_quantity_category
         self.product_count = Category.all_quantity_unique_product
+
+    def __len__(self):
+        count_products = 0
+        for product in self.__products:
+            count_products += product.quantity
+        return count_products
+
+    def __str__(self):
+        """
+        Добавляем строковое отображение в виде:
+        Название категории, количество продуктов.
+        """
+        return f'{self.name}, количество продуктов: {len(self)} шт.'
+
+    def adding_product(self, new_product):
+        """
+        Метод, который принимает на вход объекта товар и добавляет его в список
+        """
+        self.__products.append(new_product)
+        Category.all_quantity_unique_product += 1
+
+    @property
+    def getting_list_of_product(self):
+        """
+        Геттер, который выводит список товаров в формате:
+        Продукт, 'цена' руб. Остаток: '' шт.
+        Иными словами - возвращает список с заданными параметрами
+        """
+        updated_product = ''
+        for product in self.__products:
+            updated_product += f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.'
+        return updated_product
+
