@@ -16,12 +16,9 @@ class Product:
         self.__price = float(price)
         self.quantity = quantity
 
-    def __str__(self):
-        """
-        Добавляем строковое отображение в виде:
-        Название продукта, цена руб. Остаток: 15 шт.
-        """
-        return f'{self.name}, {self.price} руб. Остаток: {self.quantity}.'
+    @classmethod
+    def creating_product(cls, product_data: dict):
+        return cls(**product_data)
 
 
     @property
