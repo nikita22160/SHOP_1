@@ -20,9 +20,6 @@ class Category:
         Category.all_quantity_category += 1     # Подсчитывает категории товаров
         Category.all_quantity_unique_product += len(set(self.__products))   # Подсчитывает уникальные продукты
 
-        self.categories_count = Category.all_quantity_category
-        self.product_count = Category.all_quantity_unique_product
-
     def __len__(self):
         count_products = 0
         for product in self.__products:
